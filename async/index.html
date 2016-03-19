@@ -1,0 +1,36 @@
+<html>
+<head>
+</head>
+<body>
+<p id="log"></p>
+<script>
+function log(message) {
+  let messageDOM = document.createElement('p');
+  messageDOM.textContent = message;
+  document.getElementById('log').appendChild(messageDOM);
+}
+
+// 非同期関数
+function swapArrayAsync(array, callback) {
+  setTimeout(() => {
+    let arrayResult = [];
+    for (let i = 0; i < array.length; i++) {
+      arrayResult[i] = array[array.length - i - 1];
+    }
+    callback(arrayResult);
+  }, 0);
+}
+
+// Async実験開始
+let array = Array(10000000);
+for (let i = 0; i < array.length; i++) {
+  array[i] = i;
+}
+
+log('start');
+swapArrayAsync(array, (result) => {
+  log('async end');
+});
+log('end');
+</script>
+</body>
